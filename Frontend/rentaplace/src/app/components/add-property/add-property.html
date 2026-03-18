@@ -1,0 +1,78 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card shadow-sm p-4">
+
+        <h2 class="fw-bold mb-4" style="color:#1a1a2e;">
+          {{ editId ? 'Edit Property' : 'Add Property' }}
+        </h2>
+
+        <form (ngSubmit)="saveProperty()">
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Title</label>
+            <input type="text" class="form-control"
+                   [(ngModel)]="property.title" name="title"
+                   placeholder="Property title" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea class="form-control" rows="3"
+                      [(ngModel)]="property.description" name="description"
+                      placeholder="Describe your property"></textarea>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Location</label>
+              <input type="text" class="form-control"
+                     [(ngModel)]="property.location" name="location"
+                     placeholder="City / Area" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Price per night (₹)</label>
+              <input type="number" class="form-control"
+                     [(ngModel)]="property.price" name="price"
+                     placeholder="e.g. 2500" min="0" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Property Type</label>
+            <select class="form-select" [(ngModel)]="property.propertyType" name="propertyType">
+              <option value="">Select Type</option>
+              <option value="Flat">Flat</option>
+              <option value="Villa">Villa</option>
+              <option value="Apartment">Apartment</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Property Image</label>
+            <input type="file" class="form-control"
+                   accept="image/*" (change)="onFileSelected($event)">
+            <p *ngIf="uploadMessage" class="text-success small mt-1">
+              ✓ {{ uploadMessage }}
+            </p>
+            <div *ngIf="property.imagePath" class="mt-2">
+              <img [src]="property.imagePath" width="120"
+                   class="rounded border">
+            </div>
+          </div>
+
+          <div class="d-flex gap-3 mt-4">
+            <button type="submit" class="btn btn-red px-4 fw-semibold">
+              {{ editId ? 'Update Property' : 'Add Property' }}
+            </button>
+            <button type="button" class="btn btn-secondary px-4"
+                    (click)="router.navigate(['/properties'])">
+              Cancel
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

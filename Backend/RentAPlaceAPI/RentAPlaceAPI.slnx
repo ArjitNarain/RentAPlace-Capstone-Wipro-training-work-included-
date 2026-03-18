@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../../../../../../source/repos/DigitalAssetManagement/DigitalAssetManagement/DigitalAssetManagement.csproj" />
+  <Project Path="RentAPlaceAPI/RentAPlaceAPI.csproj" />
+</Solution>

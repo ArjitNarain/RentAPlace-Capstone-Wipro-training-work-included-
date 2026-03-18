@@ -1,0 +1,66 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card shadow-sm p-4">
+
+        <h2 class="text-center fw-bold mb-4" style="color:#1a1a2e;">Register</h2>
+
+        <form (ngSubmit)="registerUser()">
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="user.name"
+              name="name"
+              placeholder="Enter your name"
+              required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              [(ngModel)]="user.email"
+              name="email"
+              placeholder="Enter your email"
+              required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="user.password"
+              name="password"
+              placeholder="Minimum 4 characters"
+              required>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-semibold">I am a...</label>
+            <select class="form-select" [(ngModel)]="user.role" name="role">
+              <option value="">Select Role</option>
+              <option value="User">User (Renter)</option>
+              <option value="Owner">Owner</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-red w-100 py-2 fw-semibold">
+            Register
+          </button>
+
+        </form>
+
+        <p class="text-center mt-3 text-muted" style="font-size:14px;">
+          Already have an account?
+          <a routerLink="/login" style="color:#e94560;">Login here</a>
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>

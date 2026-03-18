@@ -1,0 +1,102 @@
+/* RentAPlace - Custom styles on top of Bootstrap */
+
+body {
+  background-color: #f8f9fa;
+}
+
+/* Navbar */
+.navbar-rentaplace {
+  background: #1a1a2e !important;
+}
+.navbar-rentaplace .navbar-brand {
+  color: #e94560 !important;
+  font-weight: 700;
+  font-size: 20px;
+}
+.navbar-rentaplace .nav-link {
+  color: rgba(255,255,255,0.8) !important;
+}
+.navbar-rentaplace .nav-link:hover {
+  color: #fff !important;
+}
+.navbar-rentaplace .user-info {
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+}
+
+/* Hero */
+.hero-section {
+  background: linear-gradient(135deg, #1a1a2e, #0f3460);
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.hero-section h1 { color: #fff; font-weight: 700; }
+.hero-section p  { color: rgba(255,255,255,0.7); }
+
+/* Buttons */
+.btn-red   { background: #e94560; color: #fff; border: none; }
+.btn-red:hover { background: #c73652; color: #fff; }
+.btn-navy  { background: #0f3460; color: #fff; border: none; }
+.btn-navy:hover { background: #0a2445; color: #fff; }
+
+/* Property card */
+.property-card .card-img-top {
+  height: 180px;
+  object-fit: cover;
+}
+.property-card .price {
+  color: #e94560;
+  font-size: 18px;
+  font-weight: 700;
+}
+.property-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transition: box-shadow 0.2s;
+}
+
+/* Property details header */
+.detail-header {
+  background: linear-gradient(135deg, #1a1a2e, #0f3460);
+  border-radius: 10px 10px 0 0;
+  padding: 24px;
+}
+.detail-header h2 { color: #fff; font-weight: 700; }
+.detail-header .meta { color: rgba(255,255,255,0.75); font-size: 14px; }
+.detail-header .price { color: #e94560; font-size: 24px; font-weight: 700; }
+
+/* Star rating */
+.star-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #0f3460;
+  background: #fff;
+  color: #0f3460;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.star-btn.selected {
+  background: #e94560;
+  border-color: #e94560;
+  color: #fff;
+}
+
+/* Reserve box */
+.reserve-box {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+/* Review card */
+.review-card {
+  border-left: 4px solid #e94560;
+  padding: 10px 14px;
+  background: #fff;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 10px;
+}
