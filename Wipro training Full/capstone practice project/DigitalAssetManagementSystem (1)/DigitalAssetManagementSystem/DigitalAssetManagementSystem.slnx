@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DigitalAssetManagementSystem.Tests/DigitalAssetManagementSystem.Tests.csproj" />
+  <Project Path="DigitalAssetManagementSystem/DigitalAssetManagementSystem.csproj" />
+</Solution>

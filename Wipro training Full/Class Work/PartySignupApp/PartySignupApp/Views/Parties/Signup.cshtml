@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Signup";
+}
+
+<h2>Signup</h2>
+
+<select id="partyDropdown" class="form-control">
+    <option value="">-- Select Party --</option>
+    @foreach (var party in ViewBag.Parties)
+    {
+        <option value="@party.Id">@party.Name</option>
+    }
+</select>
+
+<br />
+<br />
+
+<div id="signupDiv" style="display:none;">
+    <button class="btn btn-success">Signup</button>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $("#partyDropdown").change(function () {
+
+            var partyId = $(this).val();
+
+            if (partyId !== "") {
+
+                $.ajax({
+                    url: '/Parties/AllowSignUp',
+                    type: 'GET',
+                    data: { partyid: partyId },
+                    success: function (response) {
+
+                        if (response.status === "internal") {
+                            $("#signupDiv").show();
+                        }
+                        else {
+                            $("#signupDiv").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#signupDiv").hide();
+            }
+        });
+    </script>
+}

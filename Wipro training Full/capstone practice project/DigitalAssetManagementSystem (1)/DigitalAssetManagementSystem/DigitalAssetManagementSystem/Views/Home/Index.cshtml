@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container py-5">
+
+    <!-- HERO SECTION -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">
+            Digital Asset Management System
+        </h1>
+
+        <p class="lead text-muted mt-3">
+            A comprehensive system to manage, track, maintain and reserve organizational assets efficiently.
+        </p>
+
+        <div class="mt-4">
+            <a class="btn btn-primary btn-lg me-2"
+               asp-area="Identity"
+               asp-page="/Account/Register">
+                Get Started
+            </a>
+
+            <a class="btn btn-outline-secondary btn-lg"
+               asp-area="Identity"
+               asp-page="/Account/Login">
+                Login
+            </a>
+        </div>
+    </div>
+
+    <!-- FEATURE SECTION -->
+    <div class="row text-center mt-5">
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title text-primary">Asset Management</h4>
+                    <p class="card-text mt-3">
+                        Add, update, delete, and manage assets including laptops,
+                        vehicles, and equipment with complete ownership details.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title text-success">Asset Tracking</h4>
+                    <p class="card-text mt-3">
+                        Allocate and deallocate assets to employees,
+                        monitor current usage, and track return dates.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title text-warning">Maintenance & Reservations</h4>
+                    <p class="card-text mt-3">
+                        Record maintenance activities and reserve assets
+                        with proper scheduling and conflict validation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,119 @@
+﻿@model DigitalAssetManagementSystem.entity.Asset
+
+@{
+    ViewData["Title"] = "Asset Details";
+}
+
+<div class="container py-4">
+
+    <h2>Asset Details</h2>
+
+    @if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-success mt-2">@TempData["Msg"]</div>
+    }
+
+    @if (TempData["Err"] != null)
+    {
+        <div class="alert alert-danger mt-2">@TempData["Err"]</div>
+    }
+
+    <!-- Asset Info -->
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <p><strong>Asset ID:</strong> @Model.AssetId</p>
+                    <p><strong>Name:</strong> @Model.Name</p>
+                    <p><strong>Type:</strong> @Model.Type</p>
+                    <p><strong>Serial Number:</strong> @Model.SerialNumber</p>
+                </div>
+
+                <div class="col-md-6">
+                    <p><strong>Purchase Date:</strong> @Model.PurchaseDate.ToShortDateString()</p>
+                    <p><strong>Location:</strong> @Model.Location</p>
+                    <p><strong>Status:</strong> @Model.Status</p>
+                    <p><strong>Owner:</strong> @(Model.Owner != null ? Model.Owner.Name : "None")</p>
+                </div>
+
+            </div>
+
+            <!-- OPTIONAL FILE LINK (SAFE CHECK) -->
+            @if (Model.GetType().GetProperty("AssetFilePath") != null)
+            {
+                var filePath = Model.GetType().GetProperty("AssetFilePath")?.GetValue(Model) as string;
+
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    <hr />
+                    <p>
+                        <strong>Attached File:</strong>
+                        <a href="@filePath" target="_blank">
+                            View / Download
+                        </a>
+                    </p>
+                }
+            }
+
+            <hr />
+
+            <!-- Perform Maintenance Button -->
+            <a class="btn btn-warning"
+               asp-controller="Maintenance"
+               asp-action="Create"
+               asp-route-assetId="@Model.AssetId">
+                Perform Maintenance
+            </a>
+
+            <a class="btn btn-outline-secondary"
+               asp-action="Index">
+                Back to Assets
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Maintenance History -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-body">
+            <h4>Maintenance History</h4>
+
+            @{
+                var maintenanceList = ViewBag.Maintenance as List<DigitalAssetManagementSystem.entity.MaintenanceRecord>;
+            }
+
+            @if (maintenanceList != null && maintenanceList.Count > 0)
+            {
+                <table class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var m in maintenanceList)
+                        {
+                            <tr>
+                                <td>@m.MaintenanceDate.ToShortDateString()</td>
+                                <td>@m.Description</td>
+                                <td>@m.Cost</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-info mt-3">
+                    No maintenance records found.
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

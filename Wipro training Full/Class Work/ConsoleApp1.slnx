@@ -1,0 +1,15 @@
+<Solution>
+  <Project Path="AuthenticationExample/AuthenticationExample.csproj" Id="27fbbbfb-f12f-42be-a5a5-3037392a9c89" />
+  <Project Path="CollegeManagementMVC/CollegeManagementMVC.csproj" />
+  <Project Path="ConsoleApp1/ConsoleApp1.csproj" />
+  <Project Path="ConsoleApp2/ConsoleApp2.csproj" />
+  <Project Path="ConsoleApp3/ConsoleApp3.csproj" />
+  <Project Path="ConsoleApp4/ConsoleApp4.csproj" />
+  <Project Path="DAL/DAL.csproj" Id="f809d24b-3d42-49cf-878a-b25b0ac17ee7" />
+  <Project Path="EFExample/EFExample.csproj" Id="e0f1d6ab-b134-4a69-aa22-36c35abf23b5" />
+  <Project Path="FoodDeliveryApp/FoodDeliveryApp.csproj" Id="bf51f683-d5c0-4b03-aed6-587d375eda1a" />
+  <Project Path="Models/Models.csproj" Id="78f4ea96-d8cc-4761-bafd-0ef10f9f274c" />
+  <Project Path="MyWebAPI/MyWebAPI.csproj" />
+  <Project Path="MyWebAPI3/MyWebAPI3.csproj" Id="a8c6b9ed-11ba-4d25-a8a6-c17bec7ec877" />
+  <Project Path="WiproWebApp/WiproWebApp.csproj" />
+</Solution>

@@ -1,0 +1,18 @@
+﻿@model DigitalAssetManagementSystem.entity.Asset
+@{
+    ViewData["Title"] = "Delete Asset";
+}
+
+<div class="container py-4">
+    <h2>Delete Asset</h2>
+
+    <div class="alert alert-warning mt-3">
+        Are you sure you want to delete asset <b>@Model.Name</b> (ID: @Model.AssetId)?
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" name="assetId" value="@Model.AssetId" />
+        <button class="btn btn-danger" type="submit">Yes, Delete</button>
+        <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+    </form>
+</div>

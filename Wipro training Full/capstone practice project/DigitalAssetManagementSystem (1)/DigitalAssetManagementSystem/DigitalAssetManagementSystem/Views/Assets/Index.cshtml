@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DigitalAssetManagementSystem.entity.Asset>
+@{
+    ViewData["Title"] = "Assets";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Assets</h2>
+        <a class="btn btn-success" asp-action="Create">+ Add Asset</a>
+    </div>
+
+    @if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-success mt-2">@TempData["Msg"]</div>
+    }
+    @if (TempData["Err"] != null)
+    {
+        <div class="alert alert-danger mt-2">@TempData["Err"]</div>
+    }
+
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Serial</th>
+                <th>Status</th>
+                <th>Owner</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.AssetId</td>
+                    <td>@a.Name</td>
+                    <td>@a.Type</td>
+                    <td>@a.SerialNumber</td>
+                    <td>@a.Status</td>
+                    <td>@(a.Owner?.Name ?? "-")</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-route-id="@a.AssetId">Details</a>
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@a.AssetId">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@a.AssetId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

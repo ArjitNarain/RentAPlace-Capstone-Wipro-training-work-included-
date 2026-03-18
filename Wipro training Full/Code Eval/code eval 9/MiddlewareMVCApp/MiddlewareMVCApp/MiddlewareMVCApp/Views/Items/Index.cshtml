@@ -1,0 +1,15 @@
+﻿@model List<MiddlewareMVCApp.Models.Item>
+
+<h2>Item List</h2>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@item.Name</li>
+    }
+</ul>
+
+<form method="post" asp-action="Add">
+    <input type="text" name="Name" required />
+    <button type="submit">Add Item</button>
+</form>

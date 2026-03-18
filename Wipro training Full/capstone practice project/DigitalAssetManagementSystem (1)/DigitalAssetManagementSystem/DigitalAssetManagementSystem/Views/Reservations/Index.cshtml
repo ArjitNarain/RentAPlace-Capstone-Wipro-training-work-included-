@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DigitalAssetManagementSystem.entity.Reservation>
+@{
+    ViewData["Title"] = "Reservations";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Reservations</h2>
+        <a class="btn btn-success" asp-action="Create">+ Reserve Asset</a>
+    </div>
+
+    @if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-success mt-2">@TempData["Msg"]</div>
+    }
+    @if (TempData["Err"] != null)
+    {
+        <div class="alert alert-danger mt-2">@TempData["Err"]</div>
+    }
+
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr><th>ID</th><th>Asset</th><th>Employee</th><th>Start</th><th>End</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.ReservationId</td>
+                    <td>@r.Asset?.Name (@r.AssetId)</td>
+                    <td>@r.Employee?.Name (@r.EmployeeId)</td>
+                    <td>@r.StartDate.ToShortDateString()</td>
+                    <td>@r.EndDate.ToShortDateString()</td>
+                    <td>@r.Status</td>
+                    <td class="text-end">
+                        @if (r.Status != "canceled")
+                        {
+                            <form asp-action="Withdraw" method="post" style="display:inline;">
+                                <input type="hidden" name="reservationId" value="@r.ReservationId" />
+                                <button class="btn btn-sm btn-outline-danger" type="submit">Withdraw</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Calculator/CalculatorLibrary.csproj" />
+  <Project Path="CalculatorLib.Tests/CalculatorLibrary.Tests.csproj" />
+</Solution>

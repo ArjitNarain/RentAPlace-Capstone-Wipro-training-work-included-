@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container py-4">
+    <h2 class="mb-3">Digital Asset Management System</h2>
+
+    @if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-success">@TempData["Msg"]</div>
+    }
+    @if (TempData["Err"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Err"]</div>
+    }
+
+    <div class="row g-3 mt-2">
+        <div class="col-md-3">
+            <a class="btn btn-primary w-100" asp-controller="Assets" asp-action="Index">Asset Management</a>
+        </div>
+        <div class="col-md-3">
+            <a class="btn btn-secondary w-100" asp-controller="Allocations" asp-action="Index">Asset Tracking</a>
+        </div>
+        <div class="col-md-3">
+            <a class="btn btn-warning w-100" asp-controller="Reservations" asp-action="Index">Reservations</a>
+        </div>
+    </div>
+</div>
