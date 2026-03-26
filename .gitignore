@@ -1,12 +1,12 @@
 # FRONTEND
-frontend/node_modules/
-frontend/dist/
-frontend/.angular/
+Frontend/node_modules/
+Frontend/dist/
+Frontend/.angular/
 
 # BACKEND
-backend/bin/
-backend/obj/
-backend/.vs/
+Backend/**/bin/
+Backend/**/obj/
+Backend/.vs/
 
 # COMMON
 *.log

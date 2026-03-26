@@ -8,7 +8,7 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services - camelCase JSON so Angular gets lowercase field names
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -30,6 +30,9 @@ builder.Services.AddCors(options =>
 // Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
 
 // JWT
 var key = Encoding.UTF8.GetBytes("ThisIsMySuperSecretJWTKeyForRentAPlaceApplication12345");
@@ -82,11 +85,11 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// Create Uploads folder if it doesn't exist
+
 var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
 Directory.CreateDirectory(uploadsPath);
 
-// Serve files from Uploads folder at /Uploads URL
+
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(uploadsPath),

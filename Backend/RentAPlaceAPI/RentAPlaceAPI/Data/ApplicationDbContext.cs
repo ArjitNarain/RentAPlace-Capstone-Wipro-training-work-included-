@@ -18,28 +18,28 @@ namespace RentAPlaceAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Reservation -> Property
+            
             modelBuilder.Entity<Reservation>()
                 .HasOne(r => r.Property)
                 .WithMany()
                 .HasForeignKey(r => r.PropertyId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Reservation -> User
+            
             modelBuilder.Entity<Reservation>()
                 .HasOne(r => r.User)
                 .WithMany()
                 .HasForeignKey(r => r.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Message -> Sender (User)
+            
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.Sender)
                 .WithMany()
                 .HasForeignKey(m => m.SenderId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Message -> Receiver (User)
+            
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.Receiver)
                 .WithMany()

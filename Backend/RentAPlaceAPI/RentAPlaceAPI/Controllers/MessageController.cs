@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using RentAPlaceAPI.Data;
@@ -45,6 +46,7 @@ namespace RentAPlaceAPI.Controllers
         }
 
         
+        // Send reply message directly using receiverId
         [HttpPost]
         public IActionResult SendMessage([FromBody] CreateMessageDto dto)
         {
@@ -52,13 +54,15 @@ namespace RentAPlaceAPI.Controllers
                 return BadRequest("Message content cannot be empty.");
 
             var senderIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (senderIdClaim == null) return Unauthorized();
+            if (senderIdClaim == null)
+                return Unauthorized();
 
             var senderId = int.Parse(senderIdClaim.Value);
 
-            
+            // Check receiver exists
             var receiver = _context.Users.Find(dto.ReceiverId);
-            if (receiver == null) return NotFound("Receiver not found.");
+            if (receiver == null)
+                return NotFound("Receiver not found.");
 
             var message = new Message
             {
@@ -80,5 +84,49 @@ namespace RentAPlaceAPI.Controllers
                 SentAt = message.SentAt
             });
         }
+
+        
+        [HttpPost("property/{propertyId}")]
+        public IActionResult SendMessageToOwner(int propertyId, [FromBody] CreateMessageDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto.Content))
+                return BadRequest("Message content cannot be empty.");
+
+            var senderIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (senderIdClaim == null)
+                return Unauthorized();
+
+            var senderId = int.Parse(senderIdClaim.Value);
+
+            
+            var property = _context.Properties.Find(propertyId);
+            if (property == null)
+                return NotFound("Property not found.");
+
+            
+            if (property.OwnerId == senderId)
+                return BadRequest("You cannot message yourself.");
+
+            var message = new Message
+            {
+                SenderId = senderId,
+                ReceiverId = property.OwnerId,
+                Content = dto.Content,
+                SentAt = DateTime.UtcNow
+            };
+
+            _context.Messages.Add(message);
+            _context.SaveChanges();
+
+            return Ok(new MessageResponseDto
+            {
+                Id = message.Id,
+                SenderId = message.SenderId,
+                ReceiverId = message.ReceiverId,
+                Content = message.Content,
+                SentAt = message.SentAt
+            });
+        }
     }
 }
+

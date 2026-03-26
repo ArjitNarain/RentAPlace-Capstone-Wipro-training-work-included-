@@ -34,7 +34,7 @@ namespace RentAPlaceAPI.Controllers
 
             if (role == "Owner")
             {
-                // Owner sees reservations for their properties
+                // Owner sees reservations for their properties in this code
                 var ownerPropertyIds = _context.Properties
                     .Where(p => p.OwnerId == userId)
                     .Select(p => p.Id)
@@ -48,7 +48,7 @@ namespace RentAPlaceAPI.Controllers
                 query = query.Where(r => r.UserId == userId);
             }
 
-            // Include property title for display
+            // Include property title for display in this code
             var reservations = query
                 .Include(r => r.Property)
                 .Select(r => new
