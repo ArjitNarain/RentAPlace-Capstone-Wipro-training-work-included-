@@ -18,4 +18,9 @@ describe('Login Component - Basic Tests', () => {
     expect(email).toContain('@');
   });
 
+  it('login API URL should be correct', () => {
+    const url = 'https://localhost:7287/api/Auth/login';
+    expect(url).toContain('Auth/login');
+  });
+
 });

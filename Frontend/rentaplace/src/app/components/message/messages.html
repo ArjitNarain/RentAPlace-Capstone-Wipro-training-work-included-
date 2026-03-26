@@ -1,37 +1,102 @@
-<h2>Messages</h2>
 
-<!-- Send message form -->
-<div style="border:1px solid #ccc; padding:12px; margin-bottom:20px; max-width:400px;">
+  <div class="container mt-4">
 
-  <h4>Send a Message</h4>
+  <h2 class="fw-bold mb-4" style="color:#1a1a2e;">Messages</h2>
 
-  <label>Receiver User ID</label><br>
-  <input type="number" [(ngModel)]="receiverId" name="receiverId" placeholder="Enter user ID to message">
+  <!-- this is the Info banner code-->
+  <div *ngIf="!authService.isOwner()"
+       class="alert mb-4"
+       style="background:#fff5f7; border-left:4px solid #e94560; border-radius:8px;">
+    <p class="mb-0 fw-semibold" style="color:#e94560;">
+      Go to a property page to start a new conversation with an owner.
+    </p>
+  </div>
 
-  <br><br>
+  <div *ngIf="authService.isOwner()"
+       class="alert mb-4"
+       style="background:#f0f4ff; border-left:4px solid #0f3460; border-radius:8px;">
+    <p class="mb-0 fw-semibold" style="color:#0f3460;">
+      View messages from users and reply to them below.
+    </p>
+  </div>
 
-  <label>Message</label><br>
-  <input type="text" [(ngModel)]="newMessage" name="message" placeholder="Type your message..." style="width:100%;">
+  <!-- Conversation History -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
 
-  <br><br>
+      <h5 class="fw-bold mb-3" style="color:#1a1a2e;">
+        Conversation History
+      </h5>
 
-  <button (click)="sendMessage()">Send</button>
+      <p *ngIf="messages.length === 0" class="text-muted">
+        No messages yet. Go to a property page to start a conversation!
+      </p>
 
-</div>
+      <div *ngFor="let msg of messages"
+           class="mb-3 p-3"
+           style="border:1px solid #eee; border-radius:8px;"
+           [style.background]="isMine(msg.senderId) ? '#fff5f7' : '#f0f4ff'">
 
-<hr>
+        <!-- Message header -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <p class="mb-0 fw-semibold" style="font-size:13px;">
+            <span style="color:#e94560;">
+              {{ isMine(msg.senderId) ? 'You' : 'User #' + msg.senderId }}
+            </span>
+            &nbsp;→&nbsp;
+            <span style="color:#0f3460;">
+              {{ isMine(msg.receiverId) ? 'You' : 'User #' + msg.receiverId }}
+            </span>
+          </p>
+          <small class="text-muted">
+            {{ msg.sentAt | date:'short' }}
+          </small>
+        </div>
 
-<!-- Messages list -->
-<h4>Conversation History</h4>
+        <!-- Message content -->
+        <p class="mb-2" style="font-size:14px;">{{ msg.content }}</p>
 
-<p *ngIf="messages.length === 0" style="color:gray;">No messages yet.</p>
+        <!-- Reply button -->
+        <button class="btn btn-sm"
+                style="background:#0f3460; color:#fff; border:none;"
+                (click)="setReply(msg)">
+          ↩ Reply
+        </button>
 
-<div *ngFor="let msg of messages" style="border:1px solid #eee; margin:8px 0; padding:10px;">
-  <p>
-    <b>From:</b> {{ isMine(msg.senderId) ? 'You' : 'User #' + msg.senderId }}
-    &nbsp;→&nbsp;
-    <b>To:</b> {{ isMine(msg.receiverId) ? 'You' : 'User #' + msg.receiverId }}
-  </p>
-  <p>{{ msg.content }}</p>
-  <small style="color:gray;">{{ msg.sentAt | date:'short' }}</small>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Reply Form -->
+  <div class="card shadow-sm mb-4" *ngIf="showReplyForm">
+    <div class="card-body">
+
+      <h5 class="fw-bold mb-3" style="color:#1a1a2e;">
+        Replying to {{ replyingToName }}
+      </h5>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold small">Your Reply</label>
+        <textarea
+          class="form-control"
+          [(ngModel)]="replyContent"
+          name="replyContent"
+          rows="3"
+          placeholder="Type your reply...">
+        </textarea>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-red" (click)="sendReply()">
+          Send Reply ➤
+        </button>
+        <button class="btn btn-secondary" (click)="cancelReply()">
+          Cancel
+        </button>
+      </div>
+
+    </div>
+  </div>
+
 </div>

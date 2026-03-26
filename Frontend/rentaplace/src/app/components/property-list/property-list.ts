@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PropertyService } from '../../services/property.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -17,7 +17,8 @@ export class PropertyList implements OnInit {
   constructor(
     private propertyService: PropertyService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class PropertyList implements OnInit {
   loadProperties() {
     this.propertyService.getProperties().subscribe((data: any[]) => {
       this.properties = data;
+      this.cdr.detectChanges();
     });
   }
 
@@ -34,6 +36,7 @@ export class PropertyList implements OnInit {
     this.propertyService.searchProperties(this.location, this.type)
       .subscribe((data: any) => {
         this.properties = data;
+        this.cdr.detectChanges();
       });
   }
 
@@ -51,7 +54,9 @@ export class PropertyList implements OnInit {
     if (confirm('Delete this property?')) {
       this.propertyService.deleteProperty(id).subscribe((res: any) => {
         alert('Property deleted');
-        this.properties = this.properties.filter(p => p.id !== id);
+
+        this.loadProperties();
+        
       }, err => {
         alert('Delete failed');
       });

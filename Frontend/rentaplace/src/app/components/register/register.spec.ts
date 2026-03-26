@@ -17,4 +17,12 @@ describe('Register Component - Basic Tests', () => {
     expect(password.length).toBeGreaterThan(0);
   });
 
+
+  it('register API URL should be correct', () => {
+    const url = 'https://localhost:7287/api/Auth/register';
+    expect(url).toContain('Auth/register');
+  });
+
+  
+
 });

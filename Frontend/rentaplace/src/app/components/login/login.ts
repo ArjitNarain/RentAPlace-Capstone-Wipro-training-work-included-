@@ -22,7 +22,7 @@ export class Login {
 
       console.log('Login response:', res);
 
-      // Handle both camelCase and PascalCase responses
+      // Handle both camelCase and PascalCase responses by this codkeep in mind
       const token = res.token || res.Token;
       const user  = res.user  || res.User;
 
@@ -40,3 +40,6 @@ export class Login {
   }
 
 }
+
+
+

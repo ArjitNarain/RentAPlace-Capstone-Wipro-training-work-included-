@@ -1,70 +1,91 @@
-<h2>Reservations</h2>
 
-<!-- User: create new reservation -->
-<div *ngIf="!authService.isOwner()">
-  <h4>New Reservation</h4>
+<div class="container mt-4">
 
-  <form (ngSubmit)="createReservation()">
+  <h2 class="fw-bold mb-4" style="color:#1a1a2e;">
+    {{ authService.isOwner() ? 'Manage Reservations' : 'My Reservations' }}
+  </h2>
 
-    <label>Property ID</label><br>
-    <input type="number" [(ngModel)]="reservationData.propertyId" name="propertyId" placeholder="Enter property ID">
+  <!-- Owner -->
+  <div *ngIf="authService.isOwner()"
+       class="alert mb-4"
+       style="background:#f0f4ff; border-left:4px solid #0f3460; border-radius:8px;">
+    <p class="mb-0 fw-semibold" style="color:#0f3460;">
+      Owner View — Confirm or Cancel reservations for your properties below.
+    </p>
+  </div>
 
-    <br><br>
+  <!-- User info  -->
+  <div *ngIf="!authService.isOwner()"
+       class="alert mb-4"
+       style="background:#fff5f7; border-left:4px solid #e94560; border-radius:8px;">
+    <p class="mb-0 fw-semibold" style="color:#e94560;">
+      Go to a property page to make a new reservation.
+    </p>
+  </div>
 
-    <label>Check In</label><br>
-    <input type="date" [(ngModel)]="reservationData.checkIn" name="checkIn">
-
-    <br><br>
-
-    <label>Check Out</label><br>
-    <input type="date" [(ngModel)]="reservationData.checkOut" name="checkOut">
-
-    <br><br>
-
-    <button type="submit">Reserve</button>
-
-  </form>
-
-  <hr>
-</div>
-
-<!-- Owner message -->
-<p *ngIf="authService.isOwner()">
-  <b>Owner View — Manage all reservations for your properties below.</b>
-</p>
-
-<hr *ngIf="authService.isOwner()">
-
-<!-- Reservations list - both owner and user see this -->
-<h4>{{ authService.isOwner() ? 'Your Properties Reservations' : 'My Reservations' }}</h4>
-
-<p *ngIf="reservations.length === 0" style="color:gray;">No reservations found.</p>
-
-<div *ngFor="let r of reservations" style="border:1px solid #ccc; margin:10px 0; padding:12px;">
-
-  <p><b>Property:</b> {{ r.propertyTitle || r.propertyId }}</p>
-  <p><b>Check In:</b> {{ r.checkIn | date:'mediumDate' }}</p>
-  <p><b>Check Out:</b> {{ r.checkOut | date:'mediumDate' }}</p>
-  <p><b>Status:</b>
-    <span [style.color]="r.status === 'Confirmed' ? 'green' : r.status === 'Cancelled' ? 'red' : 'orange'">
-      <b>{{ r.status }}</b>
-    </span>
+  <!-- No reservations -->
+  <p *ngIf="reservations.length === 0" class="text-muted text-center mt-4">
+    No reservations found.
   </p>
-  <p *ngIf="authService.isOwner()"><b>User ID:</b> {{ r.userId }}</p>
 
-  <!-- Owner actions -->
-  <span *ngIf="authService.isOwner()">
-    <button
-      (click)="updateStatus(r.id, 'Confirmed')"
-      [disabled]="r.status === 'Confirmed'"
-      style="margin-right:8px;">
-      Confirm
-    </button>
-    <button
-      (click)="updateStatus(r.id, 'Cancelled')"
-      [disabled]="r.status === 'Cancelled'">
-      Cancel
-    </button>
-  </span>
+  <!-- Reservations list -->
+  <div *ngFor="let r of reservations"
+       class="card shadow-sm mb-3">
+    <div class="card-body">
+
+      <div class="row align-items-center">
+
+        <!-- Left side — details -->
+        <div class="col-md-8">
+          <h6 class="fw-bold mb-2" style="color:#1a1a2e;">
+            {{ r.propertyTitle || 'Property #' + r.propertyId }}
+          </h6>
+          <p class="text-muted small mb-1">
+            📅 <b>Check In:</b> {{ r.checkIn | date:'mediumDate' }}
+            &nbsp;&nbsp;
+            📅 <b>Check Out:</b> {{ r.checkOut | date:'mediumDate' }}
+          </p>
+          <p class="small mb-1" *ngIf="authService.isOwner()">
+            👤 <b>User ID:</b> {{ r.userId }}
+          </p>
+          <p class="mb-0">
+            <b>Status:</b>
+            <span class="ms-2 px-3 py-1 rounded-pill"
+                  style="font-size:12px; font-weight:600;"
+                  [style.background]="r.status === 'Confirmed' ? '#d4edda' : r.status === 'Cancelled' ? '#f8d7da' : '#fff3cd'"
+                  [style.color]="r.status === 'Confirmed' ? '#155724' : r.status === 'Cancelled' ? '#721c24' : '#856404'">
+              {{ r.status }}
+            </span>
+          </p>
+        </div>
+
+        <!-- Right side owner action buttons -->
+        <div class="col-md-4 text-end mt-2 mt-md-0"
+             *ngIf="authService.isOwner()">
+          <button class="btn btn-sm me-2"
+                  style="background:#3e9d54; color:#fff; border:none;"
+                  (click)="updateStatus(r.id, 'Confirmed')"
+                  [disabled]="r.status === 'Confirmed'">
+            ✓ Confirm
+          </button>
+          <button class="btn btn-sm"
+                  style="background:#dc3545; color:#fff; border:none;"
+                  (click)="updateStatus(r.id, 'Cancelled')"
+                  [disabled]="r.status === 'Cancelled'">
+            ✕ Cancel
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 
 </div>
+
+
+
+
+
+
+

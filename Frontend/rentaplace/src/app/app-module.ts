@@ -32,7 +32,7 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
     Reservations,
     Messages,
   ],
-  imports: [BrowserModule, RouterModule, FormsModule, AppRoutingModule],
+  imports: [BrowserModule,  FormsModule, AppRoutingModule],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     {

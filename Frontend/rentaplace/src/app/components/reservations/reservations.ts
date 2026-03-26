@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ReservationService } from '../../services/reservation.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -19,7 +19,8 @@ export class Reservations implements OnInit {
 
   constructor(
     private reservationService: ReservationService,
-    public authService: AuthService
+    public authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -29,6 +30,7 @@ export class Reservations implements OnInit {
   loadReservations() {
     this.reservationService.getReservations().subscribe((data: any) => {
       this.reservations = data;
+      this.cdr.detectChanges();
     });
   }
 
@@ -41,15 +43,16 @@ export class Reservations implements OnInit {
     });
   }
 
-  // Owner: update status and immediately update in the list
+  // Ownerupdate status and immediately update in the list code
   updateStatus(id: number, status: string) {
     this.reservationService.updateStatus(id, status).subscribe((res: any) => {
-      // Find and update the reservation in the list immediately
+      
       const index = this.reservations.findIndex((r: any) => r.id === id);
       if (index !== -1) {
         this.reservations[index].status = status;
       }
       alert('Status updated to: ' + status);
+      this.cdr.detectChanges();
     }, err => {
       alert('Update failed.');
     });

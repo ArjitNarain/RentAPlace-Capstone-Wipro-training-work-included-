@@ -9,6 +9,7 @@ import { AddProperty } from './components/add-property/add-property';
 import { Reservations } from './components/reservations/reservations';
 import { Messages } from './components/message/messages';
 import { Home } from './home/home';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 
@@ -22,13 +23,13 @@ const routes: Routes = [
 
   { path: 'property-details/:id', component: PropertyDetails },
 
-  { path: 'add-property', component: AddProperty },
+  { path: 'add-property', component: AddProperty,   canActivate: [AuthGuard] },
 
-  { path: 'edit-property/:id', component: AddProperty },
+  { path: 'edit-property/:id', component: AddProperty,   canActivate: [AuthGuard] },
 
-  { path: 'reservations', component: Reservations },
+  { path: 'reservations', component: Reservations,   canActivate: [AuthGuard] },
 
-  { path: 'messages', component: Messages }
+  { path: 'messages', component: Messages,   canActivate: [AuthGuard] }
 
 ];
 

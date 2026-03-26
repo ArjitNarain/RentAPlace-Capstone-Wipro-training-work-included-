@@ -13,10 +13,9 @@ export class Register {
 
   registerUser() {
 
-    console.log("Button clicked");
-
+  
     this.auth.register(this.user).subscribe(res => {
-      console.log("Registered", res);
+      
       alert("Registration successful");
     });
 

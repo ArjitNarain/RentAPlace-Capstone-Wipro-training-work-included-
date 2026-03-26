@@ -15,7 +15,7 @@ export interface Message {
 })
 export class MessageService {
 
-  baseUrl = 'https://localhost:7287/api/Message';  // fixed port (was 5001)
+  baseUrl = 'https://localhost:7287/api/Message';  
 
   constructor(private http: HttpClient) {}
 
@@ -25,6 +25,16 @@ export class MessageService {
 
   sendMessage(message: any): Observable<any> {
     return this.http.post(this.baseUrl, message);
+  }
+
+
+
+  //send using property ID
+  sendMessageToOwner(propertyId: number, content: string): Observable<any> {
+    return this.http.post(
+      this.baseUrl + '/property/' + propertyId,
+      { content: content }
+    );
   }
 
 }

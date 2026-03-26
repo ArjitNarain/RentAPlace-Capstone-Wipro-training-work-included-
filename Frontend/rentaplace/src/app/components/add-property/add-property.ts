@@ -40,7 +40,7 @@ export class AddProperty implements OnInit {
     }
   }
 
-  // Upload image to backend Uploads folder
+  //  backend Uploads folder, image upload
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (!file) return;
@@ -52,7 +52,7 @@ export class AddProperty implements OnInit {
 
     this.http.post<any>('https://localhost:7287/api/Upload', formData).subscribe(
       (res: any) => {
-        // Save the full URL returned by backend
+        
         this.property.imagePath = res.url;
         this.uploadMessage = 'Image uploaded: ' + file.name;
       },
@@ -86,3 +86,4 @@ export class AddProperty implements OnInit {
   }
 
 }
+
